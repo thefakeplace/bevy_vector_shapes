@@ -238,8 +238,8 @@ impl<T: ShapeData> ShapePipeline<T> {
         } else {
             depth_stencil = Some(DepthStencilState {
                 format: TextureFormat::Depth32Float,
-                depth_write_enabled,
-                depth_compare: CompareFunction::Greater,
+                depth_write_enabled: false,
+                depth_compare: CompareFunction::Always,
                 stencil: StencilState {
                     front: StencilFaceState::IGNORE,
                     back: StencilFaceState::IGNORE,

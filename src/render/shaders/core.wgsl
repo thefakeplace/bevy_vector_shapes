@@ -244,7 +244,7 @@ fn get_vertex_data(matrix: mat4x4<f32>, vertex: vec2<f32>, thickness: f32, flags
 
     // Calculate the local position of our vertex by scaling it
     out.scale = get_scale(matrix);
-    out.local_pos = vertex.xy * out.scale;
+    out.local_pos = vec2<f32>(0.0, 0.0); // vertex.xy * out.scale;
 
     // Convert our padding into world space and match direction of our vertex
     var aa_padding_u = AA_PADDING / out.thickness_data.pixels_per_u;
@@ -259,6 +259,9 @@ fn get_vertex_data(matrix: mat4x4<f32>, vertex: vec2<f32>, thickness: f32, flags
 
     // Transform to clip space
     out.clip_pos = view.view_proj * vec4<f32>(world_pos, 1.0);
+    out.clip_pos.x /= out.clip_pos.w;
+    out.clip_pos.y /= out.clip_pos.w;
+    out.clip_pos.w = 1.0;
     return out;
 }
 
